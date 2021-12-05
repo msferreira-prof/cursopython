@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<!-- main -->
+<main class="container m-2 w-75 mx-auto my-font-family">
+
+    <div class="row">
+        <div class="col text-center m-0">
+            <h2 class="mt-2 mb-0 my-h2">Professor - Listar</h2>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table
+                      table-borderless
+                      text-center
+                      my-table-hover
+                      my-table-td-first-child
+                      my-table-border-bottom
+                      my-table-th">
+
+            <thead>
+                <tr>
+                    <th>Matrícula</th>
+                    <th>Professor</th>
+                    <th>Titularidade</th>
+                    <th>Foto</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <!-- listar professores -->
+                {% for professor in professores %}
+
+                    <tr>
+                        <td>
+                            {{ professor.matricula }}
+                        </td>
+                        <td>
+                            {{ professor.nome }}
+                        </td> 
+                        <td>
+                            {{ professor.titularidade.nome }}
+                        </td> 
+                        <td>
+                            <button type="button" class="btn" role="button" data-target="#modalProfessor"
+                                    data-toggle="modal"  data-nome="Prof(a) {{ professor.nome }}" data-url="/static/fotos/{{ professor.foto }}">
+                                <i class="fas fa-portrait"></i>
+                            </button>
+                        </td>                        
+                    </tr>
+                
+                {% endfor %}
+            
+                {% comment %} <tr>
+                    <td colspan="2">
+                        Não existe professores cadastrados
+                    </td>
+                </tr> {% endcomment %}
+
+            </tbody>
+            
+        </table>
+
+    </div>
+
+</main>
+
+<!-- Modais -->
+<div class="modal fade" id="modalProfessor" role="dialog" aria-labelledby="{{ professor.nome }}" aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 id="tituloModal" class="modal-title meu-h5-font-size"></h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <div class="modal-body text-center">
+                <img src="" id="foto" height="300" width="300" class="img-fluid img-thumbnail" alt="Foto não encontrada">
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Fechar</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>    
+
+{% endblock conteudo %}
+
+{% block javascript_complementar %}
+    <!-- Prepara o modal com os dados da imagem do professor -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#modalProfessor').on('show.bs.modal', function(event) {
+                var imagem = $(event.relatedTarget).data('url');
+                var nomeProfessor = $(event.relatedTarget).data('nome');
+                $("#tituloModal").text(nomeProfessor);
+                $("#foto").attr('src', imagem);
+            });
+        });
+    </script>
+{% endblock javascript_complementar %}

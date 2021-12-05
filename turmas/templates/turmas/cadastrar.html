@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<!-- main -->
+<main class="container m-2 w-75 mx-auto my-font-family">
+
+    <div class="row">
+        <div class="col text-center m-0">
+            <h2 class="mt-2 mb-5 my-h2">Turma - Cadastrar</h2>
+        </div>
+    </div>
+
+    <!-- formulario HTML -->
+    <form name="frmCadastrarTurma" action="#" method="post" class="my-label-color-purple">
+
+        <div class="form-group row">
+            <label for="idSerie" class="col-sm-2 col-form-label">Série</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="idSerie" name="serie" placeholder="Informe a série da turma" maxlength="40" required>  
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="idSala" class="col-sm-2 col-form-label">Sala</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="idSala" name="sala" placeholder="Informe a sala da turma" maxlength="3" required>  
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="idHoraInicial" class="col-sm-2 col-form-label">Início da aula</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="time" id="idHoraInicial" name="horaInicial" placeholder="Informe a hora de início da aula" required>  
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="idHoraFinal" class="col-sm-2 col-form-label">Fim da aula</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="time" id="idHoraFinal" name="horaFinal" placeholder="Informe a hora de fim da aula" required>  
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="idProfessor" class="col-sm-2 col-form-label">Professor</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="idProfessor" name="professor">
+                    <option value="0" selected>Selecione</option>
+                    {% for professor in professores %}
+                        <option value="{{ professor.matricula }}">{{ professor.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group my-4 text-center">
+            <input type="reset" value="Limpar" class="btn btn-primary btn-md">
+            <input type="submit" value="Cadastrar" class="btn btn-primary btn-md">
+        </div>
+
+    </form>
+
+</main>
+
+{% endblock conteudo %}
