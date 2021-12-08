@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<!-- main -->
+<main class="container m-2 w-75 mx-auto my-font-family">
+
+    <div class="row">
+        <div class="col text-center m-0">
+            <h2 class="mt-2 mb-5 my-h2">Aluno - Cadastrar</h2>
+        </div>
+    </div>
+
+    <!-- formulario HTML -->
+    <form name="frmAlunoCadastrar" action="/alunos/cadastrarAluno" method="post" class="my-label-color-purple" enctype="multipart/form-data">{% csrf_token %}
+
+        <div class="form-group row">
+            <label for="idNomeAluno" class="col-sm-2 col-form-label">Nome do Aluno</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="idNomeAluno" name="nomeAluno" placeholder="Informe o nome do Aluno" maxlength="50" required>  
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="idTurma" class="col-sm-2 col-form-label">Turma</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="idTurma" name="turma">
+                    <option value="0" selected>Selecione</option>
+                    {% for turma in turmas %}
+                        <option value="{{ turma.codigo }}">{{ turma.codigo }} - {{ turma.serie }} série</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group my-4 text-center">
+            <input type="reset" value="Limpar" class="btn btn-primary btn-md">
+            <input type="submit" value="Cadastrar" class="btn btn-primary btn-md">
+        </div>
+
+    </form>
+
+</main>
+
+{% endblock conteudo %}

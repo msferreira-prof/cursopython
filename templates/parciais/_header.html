@@ -7,10 +7,8 @@
         <!-- logo -->
         <div>
             <a class="navbar-brand mx-auto">
-                <img src="{% static 'img/php_96.png' %}" alt="Imagem Logo">
+                <img src="{% static 'img/python.png' %}" alt="Imagem Logo">
             </a>
-
-            {% comment %} <span class="usuario">Bem-vindo, <?=$nomeUsuarioLogado;?>!</span> {% endcomment %}
 
         </div>
 
@@ -20,15 +18,6 @@
         </button>
 
         <!-- menu -->
-        {% comment %} <div class="collapse navbar-collapse justify-content-end" id="mynavbar">
-            <div class="navbar-nav">
-                <a href="/" class="nav-link">Início</a>
-                <a href="/cadastrar" class="nav-link">Cadastrar</a>
-                <a href="/consultar" class="nav-link">Consultar</a>
-                <a href="/listar" class="nav-link">Listar</a>
-                <a href="servicos/login_servico.php" class="nav-link">Sair</a>
-            </div>
-        </div> {% endcomment %}
         <div class="collapse navbar-collapse justify-content-end" id="mynavbar">
             <ul class="navbar-nav">
                 <li class="nav-item active">
@@ -51,7 +40,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownTurmas">
                         <a class="dropdown-item" href="/turmas/cadastrar">Cadastrar</a>
-                        <a class="dropdown-item" href="#">Consultar</a>
+                        <a class="dropdown-item" href="/turmas/consultar">Consultar</a>
                         <a class="dropdown-item" href="/turmas/listar">Listar</a>
                     </div>
                 </li>
@@ -60,40 +49,14 @@
                         Aluno
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownAlunos">
-                        <a class="dropdown-item" href="#">Cadastrar</a>
+                        <a class="dropdown-item" href="/alunos/cadastrar">Cadastrar</a>
                         <a class="dropdown-item" href="#">Consultar</a>
-                        <a class="dropdown-item" href="#">Listar</a>
+                        <a class="dropdown-item" href="/alunos/listar">Listar</a>
                     </div>
-                </li>
-                <li class="nav-item">
-                    <a href="servicos/login_servico.php" class="nav-link">Sair</a>
                 </li>
             </ul>
         </div>
 
     </nav>
-
-    {% comment %} 
-    <?php
-        if ($_SESSION['mensagemRetorno'] != NULL) {
-            $mensagem = $_SESSION['mensagemRetorno'];     
-    ?>
-
-    <div class="row">
-            <!-- coluna (grid system) -->
-            <div class="col">
-                <!-- bloco tipo "alerta", alerta backgroundcolor, alerta pode ser desfeito / papel = alerta -->
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    <!-- ancora, classe="close" botao pode ser desfeito -->
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <?=$mensagem?>
-                </div>
-            </div>
-    </div>
-
-    <?php
-            unset($_SESSION['mensagemRetorno']);
-        }
-    ?> {% endcomment %}
 
 </header>

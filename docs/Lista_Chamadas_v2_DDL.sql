@@ -1,72 +1,49 @@
-/* criar bd ou esquema */
-CREATE SCHEMA lista_chamadas_v2;
+/* criar bd ou esquema - MYSQL */
+create SCHEMA lista_chamadas_v2;
 
 /* conecto ou abro o bd ou esquema */
-USE lista_chamadas_v2;
+use lista_chamadas_v2;
 
 /* tabelas */
 /* tabela de professores */
-CREATE TABLE IF NOT EXISTS lista_chamadas_v2.professores (
-  matricula INT(11) NOT NULL AUTO_INCREMENT,
-  nome VARCHAR(45) NOT NULL,
-  foto VARCHAR(100) NULL DEFAULT NULL,
-  PRIMARY KEY (matricula)
-)
-DEFAULT CHARACTER SET = utf8;
+create table if not exists lista_chamadas_v2.professores (
+  matricula INT(11) not null auto_increment,
+  nome VARCHAR(50) not null,
+  foto VARCHAR(100) null default null,
+  primary key (matricula)
+) default character set = utf8;
 
 /* tabela de turmas */
-CREATE TABLE turmas (
-codigo CHAR(3) NOT NULL,
-serie  CHAR(10) NOT NULL,
-sala   INT NOT NULL,
-hora_inicial TIME NOT NULL,
-hora_final TIME NOT NULL,
-professores_matricula INT NOT NULL,
-PRIMARY KEY (codigo),
-CONSTRAINT fk_professores_matricula 
-	FOREIGN KEY (professores_matricula)
-    REFERENCES professores (matricula)
-)    
-DEFAULT CHARACTER SET = utf8;
+create table turmas (
+  codigo CHAR(3) not null,
+  serie CHAR(10) not null,
+  sala INT not null,
+  hora_inicial TIME not null,
+  hora_final TIME not null,
+  professores_matricula INT not null,
+  primary key (codigo),
+  constraint fk_professores_matricula foreign key (professores_matricula) references professores (matricula)
+) default character set = utf8;
 
 /* tabela de alunos */
-CREATE TABLE alunos (
-matricula INT NOT NULL AUTO_INCREMENT, 
-nome VARCHAR(50) NOT NULL,
-turmas_codigo CHAR(3) NULL,
-PRIMARY KEY (matricula),
-CONSTRAINT fk_turmas_codigo 
-	FOREIGN KEY (turmas_codigo)
-    REFERENCES turmas (codigo)
-)
-DEFAULT CHARACTER SET = utf8;
+create table alunos (
+  matricula INT not null auto_increment,
+  nome VARCHAR(50) not null,
+  turmas_codigo CHAR(3) null,
+  primary key (matricula),
+  constraint fk_turmas_codigo foreign key (turmas_codigo) references turmas (codigo)
+) default character set = utf8;
 
 /* tabela de usuarios */
-CREATE TABLE usuarios (
-  id INT NOT NULL AUTO_INCREMENT,
-  nome VARCHAR(45) NOT NULL,
-  email VARCHAR(100) NOT NULL,
-  senha VARCHAR(128) NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE INDEX usuarios_email_idx (email ASC))
-DEFAULT CHARACTER SET = utf8;
-
+create table usuarios (
+  id INT not null auto_increment,
+  nome VARCHAR(45) not null,
+  email VARCHAR(100) not null,
+  senha VARCHAR(128) not null,
+  primary key (id),
+  unique index usuarios_email_idx (email asc)
+) default character set = utf8;
 
 /* criar indices para as chaves estrangeiras das tabelas */
-CREATE INDEX fk_professores_matricula_idx ON turmas (professores_matricula ASC);
-CREATE INDEX fk_turmas_codigo_idx ON alunos (turmas_codigo ASC);
-
-/* Exemplos de DROP e ALTER para constraints e tabelas */
-/*   
-ALTER TABLE turmas 
-DROP CONSTRAINT fk_professores_matricula;
-
-ALTER TABLE turmas 
-MODIFY COLUMN professores_matricula CHAR(3) NULL;
-
-ALTER TABLE turmas 
-ADD CONSTRAINT fk_professores_matricula 
-	FOREIGN KEY (professores_matricula)
-    REFERENCES professores (matricula)
-;
-*/
+create index fk_professores_matricula_idx on turmas (professores_matricula asc);
+create index fk_turmas_codigo_idx on alunos (turmas_codigo asc);

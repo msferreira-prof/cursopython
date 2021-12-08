@@ -6,7 +6,7 @@
 
     <div class="row">
         <div class="col text-center m-0">
-            <h2 class="mt-2 mb-0 my-h2">Professor - Listar</h2>
+            <h2 class="mt-2 mb-0 my-h2">Aluno - Listar</h2>
         </div>
     </div>
 
@@ -23,45 +23,42 @@
             <thead>
                 <tr>
                     <th>Matrícula</th>
+                    <th>Nome</th>
+                    <th>Turma</th>
                     <th>Professor</th>
-                    <th>Titularidade</th>
-                    <th>Foto</th>
                 </tr>
             </thead>
 
             <tbody>
 
-                <!-- listar professores -->
-                {% if professores %}
+                <!-- listar alunos -->
+                {% if alunos %}
 
-                    {% for professor in professores %}
+                    {% for aluno in alunos %}
 
                         <tr>
                             <td>
-                                {{ professor.matricula }}
+                                {{ aluno.matricula }}
                             </td>
                             <td>
-                                {{ professor.nome }}
+                                {{ aluno.nome }}
                             </td> 
                             <td>
-                                {{ professor.titularidade.nome }}
+                                {{ aluno.turma.codigo }}
                             </td> 
                             <td>
-                                <button type="button" class="btn" role="button" data-target="#modalProfessor"
-                                        data-toggle="modal"  data-nome="Prof(a) {{ professor.nome }}" data-url="{{ professor.foto.url }}">
-                                    <i class="fas fa-portrait"></i>
-                                </button>
-                            </td>                        
+                                {{ aluno.turma.professor.nome }}
+                            </td>                
                         </tr>
                     
                     {% endfor %}
             
                 {% else %} 
-                    
+                
                     <tr>
-                        <td colspan="6">Não existem professores cadastrados</td>
+                        <td colspan="6">Não existem alunos cadastrados</td>
                     </tr> 
-
+                
                 {% endif %}
 
             </tbody>

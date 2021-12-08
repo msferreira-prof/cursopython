@@ -11,7 +11,7 @@
     </div>
 
     <!-- formulario HTML -->
-    <form name="frmProfessorCadastrar" action="/professores/cadastrarProf" method="post" class="my-label-color-purple" enctype="multipart/form-data">
+    <form name="frmProfessorCadastrar" action="/professores/cadastrarProfessor" method="post" class="my-label-color-purple" enctype="multipart/form-data">{% csrf_token %}
 
         <div class="form-group row">
             <label for="idNomeProfessor" class="col-sm-2 col-form-label">Nome do Professor</label>
