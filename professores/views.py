@@ -41,3 +41,12 @@ def cadastrarProfessor(request):
             return redirect('/professores/cadastrar')
     
     return redirect('/')
+
+def excluir(request, pk):
+    professor = Professor.objects.get(pk=pk)
+    professor.delete()
+    return redirect('/professores/listar')
+
+def atualizar(request, pk):
+    professor = Professor.objects.get(pk=pk)
+    return render(request, 'professores/atualizar.html')

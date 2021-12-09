@@ -26,6 +26,7 @@
                     <th>Nome</th>
                     <th>Turma</th>
                     <th>Professor</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
 
@@ -48,7 +49,12 @@
                             </td> 
                             <td>
                                 {{ aluno.turma.professor.nome }}
-                            </td>                
+                            </td>
+                            <td>
+                                <a href="{% url 'atualizarAluno' aluno.matricula %}" class="btn btn-mini"><i class="far fa-edit"></i></a>
+                                <a href="{% url 'excluirAluno' aluno.matricula %}" class="btn btn-mini"><i class="far fa-trash-alt"></i></a>
+                            </td>
+
                         </tr>
                     
                     {% endfor %}

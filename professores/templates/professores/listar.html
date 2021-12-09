@@ -26,6 +26,7 @@
                     <th>Professor</th>
                     <th>Titularidade</th>
                     <th>Foto</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
 
@@ -52,6 +53,10 @@
                                     <i class="fas fa-portrait"></i>
                                 </button>
                             </td>                        
+                            <td>
+                                <a href="{% url 'atualizarProfessor' professor.matricula %}" class="btn btn-mini"><i class="far fa-edit"></i></a>
+                                <a href="{% url 'excluirProfessor' professor.matricula %}" class="btn btn-mini"><i class="far fa-trash-alt"></i></a>
+                            </td>
                         </tr>
                     
                     {% endfor %}
@@ -85,7 +90,7 @@
             </div>
             
             <div class="modal-body text-center">
-                <img src="" id="foto" height="300" width="300" class="img-fluid img-thumbnail" alt="Foto não encontrada">
+                <img src="#" id="foto" height="300" width="300" class="img-fluid img-thumbnail" alt="Foto não encontrada">
             </div>
 
             <div class="modal-footer">

@@ -37,6 +37,17 @@ def cadastrarAluno(request):
                     #cd['fotoProfessor']
             )
     
+            aluno.save()
+
             return redirect('/alunos/cadastrar')
         
     return redirect('/')
+
+def excluir(request, pk):
+    aluno = Aluno.objects.get(pk=pk)
+    aluno.delete()
+    return redirect('/alunos/listar')
+
+def atualizar(request, pk):
+    aluno = Aluno.objects.get(pk=pk)
+    return render(request, 'alunos/atualizar.html')

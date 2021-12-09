@@ -10,6 +10,8 @@ urlpatterns = [
     path('cadastrar/', views.cadastrar, name='cadastrar'),
     path('listar/', views.listar, name='listar'),
     path('consultar/', views.consultar, name='consultar'),
-    path('cadastrarProfessor', views.cadastrarProfessor, name='cadastrarProfessor')
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('cadastrarProfessor', views.cadastrarProfessor, name='cadastrarProfessor'),
+    path('atualizar/<int:pk>', views.atualizar, name='atualizarProfessor'),
+    path('excluir/<int:pk>', views.excluir, name='excluirProfessor'),
+]
 

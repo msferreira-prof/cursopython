@@ -35,20 +35,23 @@ def cadastrarTurma(request):
             turma = Turma (
                         serie = cd['serie'],
                         sala = cd['sala'],
-                        horaInicial = cd['horaIncial'],
+                        horaInicial = cd['horaInicial'],
                         horaFinal = cd['horaFinal'],
                         professor = professor
             )
             
-            print(cd['professor'])
-            print(cd['horaIncial'])
-            print(cd['horaFinal'])
-            print(professor)
-            
-            #turma.save()    
+            turma.save()    
             
             return redirect('/turmas/cadastrar')
     
             
     return redirect('/')
 
+def excluir(request, pk):
+    turma = Turma.objects.get(pk=pk)
+    turma.delete()
+    return redirect('/turmas/listar')
+
+def atualizar(request, pk):
+    turma = Turma.objects.get(pk=pk)
+    return render(request, 'turmas/atualizar.html')
