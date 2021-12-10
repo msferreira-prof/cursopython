@@ -38,21 +38,36 @@
                     {% for aluno in alunos %}
 
                         <tr>
+                            <td>{{ aluno.matricula }}</td>
+                            <td>{{ aluno.nome }}</td> 
+
                             <td>
-                                {{ aluno.matricula }}
+                                {% if aluno.turma %}
+                                    <button type="button" class="btn" role="button" data-target="#modalTurma"
+                                        data-toggle="modal" data-codigo="{{ aluno.turma.codigo }}"
+                                        data-serie="{{ aluno.turma.serie }}" data-sala="{{ aluno.turma.sala }}"
+                                        data-horainicial="{{ aluno.turma.horaInicial}}" data-horafinal="{{ aluno.turma.horaFinal }}">
+                                        {{ aluno.turma.codigo }}
+                                    </button>
+                                {% else %}
+                                    <i class="fas fa-minus"></i>
+                                {% endif %}
                             </td>
+
                             <td>
-                                {{ aluno.nome }}
-                            </td> 
-                            <td>
-                                {{ aluno.turma.codigo }}
-                            </td> 
-                            <td>
-                                {{ aluno.turma.professor.nome }}
+                                {% if aluno.turma.professor %}
+                                    {{ aluno.turma.professor.nome }}
+                                {% else %}
+                                    <i class="fas fa-minus"></i>
+                                {% endif %}
                             </td>
+
                             <td>
                                 <a href="{% url 'atualizarAluno' aluno.matricula %}" class="btn btn-mini"><i class="far fa-edit"></i></a>
-                                <a href="{% url 'excluirAluno' aluno.matricula %}" class="btn btn-mini"><i class="far fa-trash-alt"></i></a>
+                                <button type="button" class="btn" role="button" data-target="#modalExcluirAluno"
+                                        data-toggle="modal"  data-nome="Aluno(a) {{ aluno.nome }}" data-url="{% url 'excluirAluno' aluno.matricula %}">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
                             </td>
 
                         </tr>
@@ -76,19 +91,60 @@
 </main>
 
 <!-- Modais -->
-<div class="modal fade" id="modalProfessor" role="dialog" aria-labelledby="{{ professor.nome }}" aria-hidden="true">
+<div class="modal fade" id="modalTurma" role="dialog" aria-labelledby="{{ turma.codigo }}" aria-hidden="true">
 
     <div class="modal-dialog">
 
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 id="tituloModal" class="modal-title meu-h5-font-size"></h5>
+                <h5 id="tituloModal" class="modal-title meu-h5-font-size">Dados da Turma</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             
-            <div class="modal-body text-center">
-                <img src="" id="foto" height="300" width="300" class="img-fluid img-thumbnail" alt="Foto não encontrada">
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5 class="meu-h5-font-size">Código:</h5>
+                        </div>
+                        <div class="col-md-8 text-left">
+                            <h5 id="idTurmaCodigo" class="meu-h5-basic"></h5>
+                        </div>    
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5 class="meu-h5-font-size">Série:</h5>
+                        </div>                   
+                        <div class="col-md-8 text-left">
+                            <h5 id="idTurmaSerie" class="meu-h5-basic"></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5 class="meu-h5-font-size">Sala:</h5>
+                        </div>
+                        <div class="col-md-8 text-left">
+                            <h5 id="idTurmaSala" class="meu-h5-basic"></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5 class="meu-h5-font-size">Hora Inicial:</h5>
+                        </div>
+                        <div class="col-md-8 text-left">
+                            <h5 id="idTurmaHoraInicial" class="meu-h5-basic"></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5 class="meu-h5-font-size">Hora Final:</h5>
+                        </div>
+                        <div class="col-md-8 text-left">
+                            <h5 id="idTurmaHoraFinal" class="meu-h5-basic"></h5>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -99,7 +155,32 @@
 
     </div>
 
-</div>    
+</div>
+
+<div class="modal fade" id="modalExcluirAluno" role="dialog" aria-labelledby="Confirmação" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Confirmação</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <p id="mensagemExclusao"></p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnExcluir">Excluir</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
 
 {% endblock conteudo %}
 
@@ -107,12 +188,34 @@
     <!-- Prepara o modal com os dados da imagem do professor -->
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#modalProfessor').on('show.bs.modal', function(event) {
-                var imagem = $(event.relatedTarget).data('url');
-                var nomeProfessor = $(event.relatedTarget).data('nome');
-                $("#tituloModal").text(nomeProfessor);
-                $("#foto").attr('src', imagem);
+            $('#modalTurma').on('show.bs.modal', function(event) {
+                var codigo = $(event.relatedTarget).data('codigo');
+                var serie = $(event.relatedTarget).data('serie');
+                var sala = $(event.relatedTarget).data('sala');
+                var horaInicial = $(event.relatedTarget).data('horainicial');
+                var horaFinal = $(event.relatedTarget).data('horafinal');
+                $("#idTurmaCodigo").text(codigo);
+                $("#idTurmaSerie").text(serie);
+                $("#idTurmaSala").text(sala);
+                $("#idTurmaHoraInicial").text(horaInicial);
+                $("#idTurmaHoraFinal").text(horaFinal);
             });
+
+            $('#modalExcluirAluno').on('show.bs.modal', function(event) {
+                var nomeAluno = $(event.relatedTarget).data('nome');
+                var urlExcluir = $(event.relatedTarget).data('url');
+                $("#mensagemExclusao").text("Excluir " + nomeAluno + "?");
+
+                $.fn.excluirAluno = function() {
+                    var url = $(event.relatedTarget).data('url');
+                    location.replace(url);
+                }
+            });
+        
+            $("#btnExcluir").on('click', function() {
+                $.fn.excluirAluno();
+                return false;
+            });            
         });
     </script>
 {% endblock javascript_complementar %}

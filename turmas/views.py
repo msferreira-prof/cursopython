@@ -1,3 +1,5 @@
+from django.db.models.deletion import SET_NULL
+from django.db.models.fields import NullBooleanField
 from django.shortcuts import render, redirect
 from datetime import datetime 
 from professores.models import Professor, Titularidade
@@ -28,9 +30,12 @@ def cadastrarTurma(request):
             
             cd = form.cleaned_data
             
-            professor = Professor( 
+            if cd['professor'] <= 0:
+                professor = None
+            else:
+                professor = Professor( 
                             matricula = cd['professor']
-            )
+                )
             
             turma = Turma (
                         serie = cd['serie'],

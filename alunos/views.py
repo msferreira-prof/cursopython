@@ -27,9 +27,12 @@ def cadastrarAluno(request):
             
             cd = form.cleaned_data
             
-            turma = Turma(
-                        codigo = cd['turma']    
-            )
+            if cd['turma'] == '0':
+                turma = None
+            else:
+                turma = Turma(
+                            codigo = cd['turma']    
+                )
             
             aluno = Aluno(
                     nome = cd['nomeAluno'],

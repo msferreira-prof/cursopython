@@ -20,7 +20,7 @@ create table turmas (
   sala INT not null,
   hora_inicial TIME not null,
   hora_final TIME not null,
-  professores_matricula INT not null,
+  professores_matricula INT null,
   primary key (codigo),
   constraint fk_professores_matricula foreign key (professores_matricula) references professores (matricula)
 ) default character set = utf8;
@@ -32,16 +32,6 @@ create table alunos (
   turmas_codigo CHAR(3) null,
   primary key (matricula),
   constraint fk_turmas_codigo foreign key (turmas_codigo) references turmas (codigo)
-) default character set = utf8;
-
-/* tabela de usuarios */
-create table usuarios (
-  id INT not null auto_increment,
-  nome VARCHAR(45) not null,
-  email VARCHAR(100) not null,
-  senha VARCHAR(128) not null,
-  primary key (id),
-  unique index usuarios_email_idx (email asc)
 ) default character set = utf8;
 
 /* criar indices para as chaves estrangeiras das tabelas */

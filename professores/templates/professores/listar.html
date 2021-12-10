@@ -50,12 +50,15 @@
                             <td>
                                 <button type="button" class="btn" role="button" data-target="#modalProfessor"
                                         data-toggle="modal"  data-nome="Prof(a) {{ professor.nome }}" data-url="{{ professor.foto.url }}">
-                                    <i class="fas fa-portrait"></i>
+                                    <i class="far fa-user"></i>
                                 </button>
                             </td>                        
                             <td>
                                 <a href="{% url 'atualizarProfessor' professor.matricula %}" class="btn btn-mini"><i class="far fa-edit"></i></a>
-                                <a href="{% url 'excluirProfessor' professor.matricula %}" class="btn btn-mini"><i class="far fa-trash-alt"></i></a>
+                                <button type="button" class="btn" role="button" data-target="#modalExcluirProfessor"
+                                        data-toggle="modal"  data-nome="Prof(a) {{ professor.nome }}" data-url="{% url 'excluirProfessor' professor.matricula %}">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
                             </td>
                         </tr>
                     
@@ -103,11 +106,37 @@
 
 </div>    
 
+<div class="modal fade" id="modalExcluirProfessor" role="dialog" aria-labelledby="Confirmação" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Confirmação</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <p id="mensagemExclusao"></p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnExcluir">Excluir</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
 {% endblock conteudo %}
 
 {% block javascript_complementar %}
     <!-- Prepara o modal com os dados da imagem do professor -->
     <script type="text/javascript">
+        
         $(document).ready(function() {
             $('#modalProfessor').on('show.bs.modal', function(event) {
                 var imagem = $(event.relatedTarget).data('url');
@@ -115,6 +144,23 @@
                 $("#tituloModal").text(nomeProfessor);
                 $("#foto").attr('src', imagem);
             });
+
+            $('#modalExcluirProfessor').on('show.bs.modal', function(event) {
+                var nomeProfessor = $(event.relatedTarget).data('nome');
+                var urlExcluir = $(event.relatedTarget).data('url');
+                $("#mensagemExclusao").text("Excluir " + nomeProfessor + "?");
+
+                $.fn.excluirProfessor = function() {
+                    var url = $(event.relatedTarget).data('url');
+                    location.replace(url);
+                }
+            });
+        
+            $("#btnExcluir").on('click', function() {
+                $.fn.excluirProfessor();
+                return false;
+            });
         });
+
     </script>
 {% endblock javascript_complementar %}

@@ -9,4 +9,4 @@ class Turma(models.Model):
     sala = models.IntegerField(blank=False)
     horaInicial = models.TimeField(blank=False, default=timezone.now)
     horaFinal = models.TimeField(blank=False, default=timezone.now)
-    professor = models.ForeignKey(Professor, on_delete=models.DO_NOTHING)
+    professor = models.ForeignKey(Professor, models.SET_NULL, blank=True, null=True)

@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.deletion import SET_NULL
 from professores.models import Professor, Titularidade
 from turmas.models import Turma
 
@@ -6,4 +7,4 @@ from turmas.models import Turma
 class Aluno(models.Model):
     matricula = models.BigAutoField(primary_key=True)
     nome = models.CharField(max_length=50, blank=False)
-    turma = models.ForeignKey(Turma, on_delete=models.DO_NOTHING)
+    turma = models.ForeignKey(Turma, models.SET_NULL, blank=True, null=True)

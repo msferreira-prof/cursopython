@@ -23,5 +23,6 @@ urlpatterns = [
     path('', views.index, name='home'),
     path('professores/', include('professores.urls')),
     path('turmas/', include('turmas.urls')),
-    path('alunos/', include('alunos.urls')),    
+    path('alunos/', include('alunos.urls')), 
+    path('utils/', include('utils.urls')),
 ]
