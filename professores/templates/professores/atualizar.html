@@ -7,18 +7,59 @@
 
     <div class="row">
         <div class="col text-center m-0">
-            <h2 class="mt-2 mb-0 my-h2">Professor - Consultar</h2>
+            <h2 class="mt-2 mb-5 my-h2">Professor - Atualizar</h2>
         </div>
     </div>
 
     <!-- formulario HTML -->
-    <div class="row w-50 my-4 mx-auto">
+    <!-- form name="frmProfessorAtualizar" action="/professores/atualizarProfessor" method="post" class="my-label-color-purple"></form> enctype="multipart/form-data">{% csrf_token %} -->
+    <form name="frmProfessorAtualizar" action="/professores/atualizarProfessor" method="post" class="my-label-color-purple">{% csrf_token %}
 
-        <div class="col">
-            <img src="{% static 'img/paginaemconstrucao.jpg' %}" class="rounded img-fluid">
+        <input type="hidden" id="idMatriculaProfessor" name="matriculaProfessor" value="{{ professor.matricula }}">  
+
+        <div class="form-group row">
+            <label for="idMatricula" class="col-sm-2 col-form-label">Matrícula</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="idMatricula" name="matricula" maxlength="45" value="{{ professor.matricula }}" readonly>  
+            </div>
         </div>
 
-    </div>
+        <div class="form-group row">
+            <label for="idNomeProfessor" class="col-sm-2 col-form-label">Nome</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="idNomeProfessor" name="nomeProfessor" maxlength="45" value="{{ professor.nome }}" required>    
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="idTitularidade" class="col-sm-2 col-form-label">Titularidade</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="idTitularidade" name="titularidade">
+                    <option value="0" selected>Selecione</option>
+                    {% for titularidade in titularidades %}
+                        {% if professor.titularidade.codigo == titularidade.codigo %}
+                            <option value="{{ titularidade.codigo }}" selected>{{ titularidade.nome }}</option>
+                        {% else %}
+                            <option value="{{ titularidade.codigo }}">{{ titularidade.nome }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="idFotoProfessor" class="col-sm-2 col-form-label">Foto</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="file" id="idFotoProfessor" name="fotoProfessor" placeholder="Insira a foto do professor" disabled>  
+            </div>
+        </div>
+
+        <div class="form-group my-4 text-center">
+            <input type="reset" value="Limpar" class="btn btn-primary btn-md">
+            <input type="submit" value="Atualizar" class="btn btn-primary btn-md">
+        </div>
+
+    </form>
 
 </main>
 

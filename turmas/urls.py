@@ -6,8 +6,8 @@ urlpatterns = [
     path('cadastrar/', views.cadastrar, name='cadastrar'),
     path('listar/', views.listar, name='listar'),
     path('consultar/', views.consultar, name='consultar'),
+    path('atualizarTur/<str:pk>', views.atualizar, name='atualizarTur'),
     path('cadastrarTurma', views.cadastrarTurma, name='cadastrarTurma'),
-    path('atualizar/<str:pk>', views.atualizar, name='atualizarTurma'),
     path('excluir/<str:pk>', views.excluir, name='excluirTurma'),
-
+    path('atualizarTurma', views.atualizarTurma, name='atualizarTurma'),
 ]

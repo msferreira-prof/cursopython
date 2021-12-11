@@ -11,10 +11,11 @@
     </div>
 
     <!-- formulario HTML -->
-    <form name="frmProfessorCadastrar" action="/professores/cadastrarProfessor" method="post" class="my-label-color-purple" enctype="multipart/form-data">{% csrf_token %}
+    <!-- form name="frmProfessorCadastrar" action="/professores/cadastrarProfessor" method="post" class="my-label-color-purple" enctype="multipart/form-data">{% csrf_token %} -->
+    <form name="frmProfessorCadastrar" action="/professores/cadastrarProfessor" method="post" class="my-label-color-purple">{% csrf_token %}
 
         <div class="form-group row">
-            <label for="idNomeProfessor" class="col-sm-2 col-form-label">Nome do Professor</label>
+            <label for="idNomeProfessor" class="col-sm-2 col-form-label">Nome</label>
             <div class="col-sm-10">
                 <input class="form-control" type="text" id="idNomeProfessor" name="nomeProfessor" placeholder="Informe o nome do professor" maxlength="45" required>  
             </div>
@@ -33,9 +34,9 @@
         </div>
 
         <div class="form-group row">
-            <label for="idFotoProfessor" class="col-sm-2 col-form-label">Foto do Professor</label>
+            <label for="idFotoProfessor" class="col-sm-2 col-form-label">Foto</label>
             <div class="col-sm-10">
-                <input class="form-control" type="file" id="idFotoProfessor" name="fotoProfessor" placeholder="Insira a foto do professor">  
+                <input class="form-control" type="file" id="idFotoProfessor" name="fotoProfessor" placeholder="Insira a foto do professor" disabled>  
             </div>
         </div>
 

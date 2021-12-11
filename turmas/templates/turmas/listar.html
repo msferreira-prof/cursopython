@@ -25,8 +25,8 @@
                     <th>Código</th>
                     <th>Série</th>
                     <th>Sala</th>
-                    <th>Hora Inicial</th>
-                    <th>Hora Final</th>
+                    <th>Início</th>
+                    <th>Fim</th>
                     <th>Professor</th>
                     <th>Ações</th>
                 </tr>
@@ -70,7 +70,7 @@
                                 {% endif %}
                             </td>
                             <td>
-                                <a href="{% url 'atualizarTurma' turma.codigo %}" class="btn btn-mini"><i class="far fa-edit"></i></a>
+                                <a href="{% url 'atualizarTur' turma.codigo %}" class="btn btn-mini"><i class="far fa-edit"></i></a>
                                 <button type="button" class="btn" role="button" data-target="#modalExcluirTurma"
                                         data-toggle="modal"  data-nome="Turma {{ turma.codigo }} - {{ turma.serie }} serie" data-url="{% url 'excluirTurma' turma.codigo %}">
                                     <i class="far fa-trash-alt"></i>

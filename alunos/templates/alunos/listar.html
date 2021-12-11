@@ -63,7 +63,7 @@
                             </td>
 
                             <td>
-                                <a href="{% url 'atualizarAluno' aluno.matricula %}" class="btn btn-mini"><i class="far fa-edit"></i></a>
+                                <a href="{% url 'atualizarAlu' aluno.matricula %}" class="btn btn-mini"><i class="far fa-edit"></i></a>
                                 <button type="button" class="btn" role="button" data-target="#modalExcluirAluno"
                                         data-toggle="modal"  data-nome="Aluno(a) {{ aluno.nome }}" data-url="{% url 'excluirAluno' aluno.matricula %}">
                                     <i class="far fa-trash-alt"></i>

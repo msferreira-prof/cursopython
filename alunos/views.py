@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from professores.models import Professor, Titularidade
 from turmas.models import Turma
 from .models import Aluno
-from .forms import frmAlunoCadastrar
+from .forms import frmAlunoAtualizar, frmAlunoCadastrar
 
 # Create your views here.
 def cadastrar(request):
@@ -52,5 +52,35 @@ def excluir(request, pk):
     return redirect('/alunos/listar')
 
 def atualizar(request, pk):
+    turmas = Turma.objects.all()
     aluno = Aluno.objects.get(pk=pk)
-    return render(request, 'alunos/atualizar.html')
+    return render(request, 'alunos/atualizar.html',
+        {'aluno': aluno, 'turmas': turmas})
+
+def atualizarAluno(request):
+    if request.method == 'POST':
+        form = frmAlunoAtualizar(request.POST)
+        if form.is_valid():
+            
+            cd = form.cleaned_data
+            
+            matricula = request.POST.get('matriculaAluno')
+
+            aluno = Aluno.objects.get(pk=matricula)
+
+            codigoTurma = cd['turma']
+            if codigoTurma == '0':
+                turma = None
+            else:
+                turma = Turma.objects.get(pk=codigoTurma)
+
+            aluno.turma = turma
+
+            aluno.nome = cd['nomeAluno']
+            
+            aluno.save()    
+
+    alunos = Aluno.objects.all()           
+    return render(request, 'alunos/listar.html', {
+        'alunos': alunos
+    })

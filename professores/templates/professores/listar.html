@@ -54,7 +54,7 @@
                                 </button>
                             </td>                        
                             <td>
-                                <a href="{% url 'atualizarProfessor' professor.matricula %}" class="btn btn-mini"><i class="far fa-edit"></i></a>
+                                <a href="{% url 'atualizarProf' professor.matricula %}" class="btn btn-mini"><i class="far fa-edit"></i></a>
                                 <button type="button" class="btn" role="button" data-target="#modalExcluirProfessor"
                                         data-toggle="modal"  data-nome="Prof(a) {{ professor.nome }}" data-url="{% url 'excluirProfessor' professor.matricula %}">
                                     <i class="far fa-trash-alt"></i>
