@@ -8,6 +8,7 @@ class Titularidade(models.Model):
 class Professor(models.Model):
     matricula = models.BigAutoField(primary_key=True)
     nome = models.CharField(max_length=45, blank=False)
-    #foto = models.FileField(blank=True, upload_to='fotos')
+    foto = models.ImageField(blank=True, upload_to='fotos/')
     titularidade = models.ForeignKey(Titularidade, on_delete=models.DO_NOTHING)
+    publicar = models.BooleanField(default=True)
     

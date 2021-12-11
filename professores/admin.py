@@ -11,8 +11,9 @@ class TitularidadeAdmin(admin.ModelAdmin):
 
     
 class ProfessorAdmin(admin.ModelAdmin):
-    list_display = ('matricula', 'nome', 'titularidade')
-    list_display_links = ('matricula', 'nome', 'titularidade')
+    list_display = ('matricula', 'nome', 'titularidade', 'publicar')
+    list_display_links = ('matricula', 'nome', 'titularidade')    
+    
 
 admin.site.register(Titularidade, TitularidadeAdmin)
 admin.site.register(Professor, ProfessorAdmin)

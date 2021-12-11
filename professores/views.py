@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from .models import Professor, Titularidade
 from .forms import frmProfessorAtualizar, frmProfessorCadastrar
 
-
 # Create your views here.
 def cadastrar(request):
     titularidades = Titularidade.objects.all()
@@ -21,18 +20,20 @@ def consultar(request):
 
 def cadastrarProfessor(request):
     if request.method == 'POST':
-        form = frmProfessorCadastrar(request.POST)
+        form = frmProfessorCadastrar(request.POST, request.FILES)
         if form.is_valid():
             
-            cd = form.cleaned_data
+            nome = form.cleaned_data.get('nomeProfessor')
+            foto = form.cleaned_data.get('fotoProfessor')
+            codigo = form.cleaned_data.get('titularidade')
             
             titularidade =  Titularidade(
-                                codigo = cd['titularidade']
+                                codigo = codigo
             )
-            
+
             professor = Professor( 
-                            nome = cd['nomeProfessor'],
-                            #foto = models.FileField(blank=True, upload_to='fotos')
+                            nome = nome,
+                            foto = foto,
                             titularidade = titularidade
             )
             
@@ -55,21 +56,30 @@ def atualizar(request, pk):
 
 def atualizarProfessor(request):
     if request.method == 'POST':
-        form = frmProfessorAtualizar(request.POST)
+        form = frmProfessorAtualizar(request.POST, request.FILES)
         if form.is_valid():
             
             cd = form.cleaned_data
-            
-            matricula = request.POST.get('matriculaProfessor')
 
+            matricula = request.POST.get('matriculaProfessor')
             professor = Professor.objects.get(pk=matricula)
 
-            codigoTitularidade = cd['titularidade']
+            nome = form.cleaned_data.get('nomeProfessor')
+            foto = form.cleaned_data.get('fotoProfessor')
+            removerFoto = form.cleaned_data.get('removerFoto')
+
+            codigoTitularidade = form.cleaned_data.get('titularidade')
             titularidade = Titularidade.objects.get(pk=codigoTitularidade)
             
+            # atualiza professor
             professor.titularidade = titularidade
+            professor.nome = nome
 
-            professor.nome = cd['nomeProfessor']
+            # verifica se a foto foi mudada ou deve ser removida
+            if removerFoto: 
+                professor.foto = None
+            elif foto: 
+                professor.foto = foto
             
             professor.save()    
 

@@ -36,32 +36,40 @@
                 {% if professores %}
 
                     {% for professor in professores %}
+                        
+                        {% if professor.publicar %}
 
-                        <tr>
-                            <td>
-                                {{ professor.matricula }}
-                            </td>
-                            <td>
-                                {{ professor.nome }}
-                            </td> 
-                            <td>
-                                {{ professor.titularidade.nome }}
-                            </td> 
-                            <td>
-                                <button type="button" class="btn" role="button" data-target="#modalProfessor"
-                                        data-toggle="modal"  data-nome="Prof(a) {{ professor.nome }}" data-url="{{ professor.foto.url }}">
-                                    <i class="far fa-user"></i>
-                                </button>
-                            </td>                        
-                            <td>
-                                <a href="{% url 'atualizarProf' professor.matricula %}" class="btn btn-mini"><i class="far fa-edit"></i></a>
-                                <button type="button" class="btn" role="button" data-target="#modalExcluirProfessor"
-                                        data-toggle="modal"  data-nome="Prof(a) {{ professor.nome }}" data-url="{% url 'excluirProfessor' professor.matricula %}">
-                                    <i class="far fa-trash-alt"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    
+                            <tr>
+                                <td>
+                                    {{ professor.matricula }}
+                                </td>
+                                <td>
+                                    {{ professor.nome }}
+                                </td> 
+                                <td>
+                                    {{ professor.titularidade.nome }}
+                                </td> 
+                                <td>
+                                    {% if professor.foto %}
+                                        <button type="button" class="btn" role="button" data-target="#modalProfessor"
+                                                data-toggle="modal"  data-nome="Prof(a) {{ professor.nome }}" data-url="{{ professor.foto.url }}">
+                                            <i class="far fa-user"></i>
+                                        </button>
+                                    {% else %}
+                                        <i class="fas fa-minus"></i>
+                                    {% endif %}
+                                </td>                        
+                                <td>
+                                    <a href="{% url 'atualizarProf' professor.matricula %}" class="btn btn-mini"><i class="far fa-edit"></i></a>
+                                    <button type="button" class="btn" role="button" data-target="#modalExcluirProfessor"
+                                            data-toggle="modal"  data-nome="Prof(a) {{ professor.nome }}" data-url="{% url 'excluirProfessor' professor.matricula %}">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        
+                        {% endif %}
+
                     {% endfor %}
             
                 {% else %} 
