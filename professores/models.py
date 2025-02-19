@@ -5,6 +5,7 @@ from django.utils import timezone
 class Titularidade(models.Model):
     codigo = models.BigAutoField(primary_key=True)
     nome = nome = models.CharField(max_length=40, blank=False)
+    
 class Professor(models.Model):
     matricula = models.BigAutoField(primary_key=True)
     nome = models.CharField(max_length=45, blank=False)
